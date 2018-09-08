@@ -9,16 +9,19 @@ export class MessageController {
 
   getMessage(req: Request, res: Response, next: NextFunction) {
     console.log("get message");
+    console.log(req);
     res.send({ message: 'ok' });
   }
 
   postMessage(req: Request, res: Response, next: NextFunction) {
     console.log("post message");
+    console.log(req);
     res.send({ message: 'ok' });
   }
 
   putMessage(req: Request, res: Response, next: NextFunction) {
     console.log("put message");
+    console.log(req);
     res.send({ message: 'ok' });
   }
 }
