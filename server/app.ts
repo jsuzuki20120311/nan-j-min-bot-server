@@ -2,7 +2,6 @@ import * as bodyParser from 'body-parser';
 import 'ejs';
 import * as express from 'express';
 import * as path from 'path';
-import * as favicon from 'serve-favicon';
 import api from './routes/api/index';
 
 /**
@@ -10,9 +9,6 @@ import api from './routes/api/index';
  * @type {Express}
  */
 const app = express();
-
-// ファビコンを設定
-app.use(favicon(__dirname + '/public/images/favicon.png'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
