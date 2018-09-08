@@ -1,0 +1,11 @@
+node_modules
+.idea/
+.settings
+.project
+
+*.iml
+*.css.d.ts
+*.scss.d.ts
+*.js
+*.js.map
+npm-debug.log.*
