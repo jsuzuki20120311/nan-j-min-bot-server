@@ -4,10 +4,14 @@ import { NanJMinBotService } from '../services/nan-j-min-bot-service';
 
 export class MessageController {
 
-  doPost(req: Request, res: Response, next: NextFunction) {
+  async doPost(req: Request, res: Response, next: NextFunction) {
     const service = new NanJMinBotService();
-    service.postMessage(req.body);
-    res.send({ message: 'ok' });
+    try {
+      await service.postMessage(req.body);
+      res.send({ message: 'ok' });
+    } catch(error) {
+      next({ stats: 500, message: 'server error.' });      
+    }
   }
 
 }

@@ -4,13 +4,14 @@ import * as path from 'path';
 import * as shelljs from 'shelljs';
 import * as request from 'request-promise';
 
+import { ngWordList } from '../configs/ng-word-list';
 import { SlackGoingWebHookBody } from '../models/slack-going-webhook-body';
 
 
 export class NanJMinBotService {
 
 	postMessage(body: SlackGoingWebHookBody) {
-		const srcTextFilePath = path.join(__dirname, '../../bot/text-files/src/' + body.timestamp + '.txt');fs.writeFileSync(srcTextFilePath, '');
+		const srcTextFilePath = path.join(__dirname, '../../bot/text-files/src/' + body.timestamp + '.txt');
 		const distTextFilePath = path.join(__dirname, '../../bot/text-files/dist/' + body.timestamp + '.txt');
 
 		return this.writeFilePromise(srcTextFilePath, body.text)
@@ -21,10 +22,7 @@ export class NanJMinBotService {
 				return this.readFilePromise(distTextFilePath);
 			})
 			.then((message: string) => {
-				return this.postToSlack(message);
-			})
-			.catch((error) => {
-				console.error(error);
+				return this.postToSlack(this.filteringMessage(message.replace(/^>>[0-9]*/, '')));
 			});
 	}
 
@@ -77,6 +75,13 @@ export class NanJMinBotService {
 			}
 		};
 		return request.post(url, options);
+	}
+
+	private filteringMessage(message: string) {
+		ngWordList.forEach((word) => {
+			message.replace(word, '●●●●');
+		});
+		return message;
 	}
 
 }
