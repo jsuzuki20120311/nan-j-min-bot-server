@@ -17,10 +17,12 @@ export class NanJMinBotService {
 		const srcTextFilePath = path.join(__dirname, '../../bot/text-files/src/' + body.timestamp + '.txt');
 		const distTextFilePath = path.join(__dirname, '../../bot/text-files/dist/' + body.timestamp + '.txt');
 
+		console.log('srcTextFilePath: ' + srcTextFilePath);
+		console.log('distTextFilePath: ' + distTextFilePath);
+
 		const srcTextFileWatcher = chokidar.watch(srcTextFilePath, { persistent:true });
 		srcTextFileWatcher.addListener('add', () => {
 			console.log('file created: ' + srcTextFilePath);
-
 			this.execDecodeShellScript(srcTextFilePath, distTextFilePath);
 		});
 
