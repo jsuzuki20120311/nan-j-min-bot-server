@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import * as chokidar from 'chokidar';
 import * as shelljs from 'shelljs';
 import * as request from 'request-promise';
 
@@ -11,32 +10,34 @@ import { SlackGoingWebHookBody } from '../models/slack-going-webhook-body';
 export class NanJMinBotService {
 
 	postMessage(body: SlackGoingWebHookBody) {
-
-		console.log('NanJMinBotService: postMessage');
-
 		const srcTextFilePath = path.join(__dirname, '../../bot/text-files/src/' + body.timestamp + '.txt');
+		fs.writeFileSync(srcTextFilePath, '');
+
 		const distTextFilePath = path.join(__dirname, '../../bot/text-files/dist/' + body.timestamp + '.txt');
+		fs.writeFileSync(distTextFilePath, '');
 
 		console.log('srcTextFilePath: ' + srcTextFilePath);
 		console.log('distTextFilePath: ' + distTextFilePath);
 
-		const srcTextFileWatcher = chokidar.watch(srcTextFilePath, { persistent:true });
-		srcTextFileWatcher.addListener('add', () => {
+		const srcTextFileWatcher = fs.watch(srcTextFilePath, { persistent: true });
+		const handleAddSrc = () => {
 			console.log('file created: ' + srcTextFilePath);
 			this.execDecodeShellScript(srcTextFilePath, distTextFilePath);
-		});
+		};
+		srcTextFileWatcher.on('change', handleAddSrc);
 
-		const distTextFileWatcher = chokidar.watch(distTextFilePath, { persistent:true });
-		distTextFileWatcher.addListener('add', () => {
+		const distTextFileWatcher = fs.watch(distTextFilePath, { persistent: true });
+		const handleAddDist = () => {
 			this.readFilePromise(distTextFilePath)
 				.then((message: string) => {
 					return this.postToSlack(message);
 				})
 				.then(() => {
-					srcTextFileWatcher.removeListener('add');
-					distTextFileWatcher.removeListener('add');
+					srcTextFileWatcher.removeListener('change', handleAddSrc);
+					distTextFileWatcher.removeListener('change', handleAddDist);
 				});
-		});
+		};
+		distTextFileWatcher.on('change', handleAddDist);
 
 		return this.writeFilePromise(srcTextFilePath, body.text)
 			.then(() => {
