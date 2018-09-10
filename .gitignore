@@ -9,3 +9,11 @@ node_modules
 *.js
 *.js.map
 npm-debug.log.*
+
+/bot/data/*
+/bot/text-files/src/*
+/bot/text-files/dist/*
+/bot/t2t_datagen/*
+/bot/t2t-data/*
+/bot/t2t-train/*
+/bot/__pycache__

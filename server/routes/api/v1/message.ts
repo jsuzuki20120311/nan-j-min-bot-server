@@ -1,21 +1,15 @@
 import * as express from 'express';
 import { MessageController } from '../../../controllers/message-controller';
 
-const message = express.Router();
+const router = express.Router();
 
-message.get('/', (req, res, next) => {
-  const messageController = new MessageController();
-  messageController.getMessage(req, res, next);
+router.get('/', (req, res) => {
+  res.send({ message: 'ok' });
 });
 
-message.post('/', (req, res, next) => {
+router.post('/', (req, res, next) => {
   const messageController = new MessageController();
-  messageController.postMessage(req, res, next);
+  messageController.doPost(req, res, next);
 });
 
-message.put('/', (req, res, next) => {
-  const messageController = new MessageController();
-  messageController.putMessage(req, res, next);
-});
-
-export default message;
+export default router;

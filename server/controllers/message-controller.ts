@@ -1,27 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
-import * as path from 'path';
-import * as sqlite3 from 'sqlite3';
-import { AppData } from '../models/app-data';
-import { AppError } from '../models/app-error';
-import { Message } from "../models/message";
+import { NanJMinBotService } from '../services/nan-j-min-bot-service';
+
 
 export class MessageController {
 
-  getMessage(req: Request, res: Response, next: NextFunction) {
-    console.log("get message");
-    console.log(req);
+  doPost(req: Request, res: Response, next: NextFunction) {
+    const service = new NanJMinBotService();
+    service.postMessage(req.body);
     res.send({ message: 'ok' });
   }
 
-  postMessage(req: Request, res: Response, next: NextFunction) {
-    console.log("post message");
-    console.log(req);
-    res.send({ message: 'ok' });
-  }
-
-  putMessage(req: Request, res: Response, next: NextFunction) {
-    console.log("put message");
-    console.log(req);
-    res.send({ message: 'ok' });
-  }
 }

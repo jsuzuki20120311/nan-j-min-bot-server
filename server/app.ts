@@ -1,5 +1,5 @@
-import * as bodyParser from 'body-parser';
 import 'ejs';
+import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as path from 'path';
 import api from './routes/api/index';
@@ -9,6 +9,10 @@ import api from './routes/api/index';
  * @type {Express}
  */
 const app = express();
+
+// テンプレートエンジンに ejs を使用するための設定
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
