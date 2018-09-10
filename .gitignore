@@ -14,7 +14,7 @@ npm-debug.log.*
 /bot/text-files/src/*
 /bot/text-files/dist/*
 /bot/t2t_datagen/*
-/bot/t2t-dara_bak
-/bot/t2t-train/*
+#/bot/t2t-dara/*
+#/bot/t2t-train/*
 /bot/__pycache__
 !.gitkeep
