@@ -21,10 +21,10 @@ export class NanJMinBotService {
 			.then(() => {
 				return this.readFilePromise(distTextFilePath);
 			})
-			.then((message: string) => {
+			.then((content: string) => {
 				const message = '@'
 					+ body.user_name
-					+ this.filteringMessage(message.replace(/^>>[0-9]*/, ''));
+					+ this.filteringMessage(content.replace(/^>>[0-9]*/, ''));
 				return this.postToSlack(message);
 			});
 	}
