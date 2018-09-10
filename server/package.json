@@ -7,7 +7,7 @@
   "scripts": {
     "start": "tsc && PORT=3002 NODE_ENV=production forever start --watch --watchDirectory=./ www/index.js --watchIgnore",
     "stop": "forever stop www/index.js",
-    "dev": "tsc --watch & PORT=3002 NODE_ENV=development forever --watch --watchDirectory=./ www/index.js --watchIgnore"
+    "dev": "tsc; tsc --watch & PORT=3002 NODE_ENV=development forever --watch --watchDirectory=./ www/index.js --watchIgnore"
   },
   "license": "MIT",
   "dependencies": {
