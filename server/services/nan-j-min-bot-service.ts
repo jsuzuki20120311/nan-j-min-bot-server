@@ -14,7 +14,7 @@ export class NanJMinBotService {
 		const srcTextFilePath = path.join(__dirname, '../../bot/text-files/src/' + body.timestamp + '.txt');
 		const distTextFilePath = path.join(__dirname, '../../bot/text-files/dist/' + body.timestamp + '.txt');
 
-		return this.writeFilePromise(srcTextFilePath, body.text)
+		return this.writeFilePromise(srcTextFilePath, body.text.slice(body.trigger_word.length))
 			.then(() => {
 				return this.execDecodeShellScript(srcTextFilePath, distTextFilePath);
 			})
@@ -22,7 +22,10 @@ export class NanJMinBotService {
 				return this.readFilePromise(distTextFilePath);
 			})
 			.then((message: string) => {
-				return this.postToSlack(this.filteringMessage(message.replace(/^>>[0-9]*/, '')));
+				const message = '@'
+					+ body.user_name
+					+ this.filteringMessage(message.replace(/^>>[0-9]*/, ''));
+				return this.postToSlack(message);
 			});
 	}
 
