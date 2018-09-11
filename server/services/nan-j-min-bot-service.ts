@@ -24,9 +24,7 @@ export class NanJMinBotService {
 				return this.readFilePromise(distTextFilePath);
 			})
 			.then((content: string) => {
-				const message = '@'
-					+ body.user_name
-					+ ' '
+				const message = `<@${body.user_id}> `
 					+ this.filteringMessage(content.replace(/^>>[0-9]*/, ''));
 				return this.postToSlack(message);
 			});
