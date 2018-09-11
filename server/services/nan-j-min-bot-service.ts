@@ -14,9 +14,8 @@ export class NanJMinBotService {
 		const srcTextFilePath = path.join(__dirname, '../../bot/text-files/src/' + body.timestamp + '.txt');
 		const distTextFilePath = path.join(__dirname, '../../bot/text-files/dist/' + body.timestamp + '.txt');
 
-		console.log(body);
-		
-		return this.writeFilePromise(srcTextFilePath, body.text.slice(body.trigger_word.length))
+		const srcText = body.text.slice(body.trigger_word.length).replace(/\r?\n/g, '');
+		return this.writeFilePromise(srcTextFilePath, srcText)
 			.then(() => {
 				return this.execDecodeShellScript(srcTextFilePath, distTextFilePath);
 			})
