@@ -81,10 +81,11 @@ export class NanJMinBotService {
 	}
 
 	private filteringMessage(message: string) {
+		let result = message;
 		ngWordList.forEach((word) => {
-			message.replace(word, '●●●●');
+			result = result.replace(word, '...');
 		});
-		return message;
+		return result;
 	}
 
 }
