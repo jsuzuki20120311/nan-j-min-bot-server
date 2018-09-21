@@ -37,6 +37,5 @@ $ conda env export -n yome > myenv.yaml
 ### 仮想環境再構築
 
 ```bash
-$ conda env create -f=myenv.yaml
+$ conda create -n py27 python=2.7 anaconda
 ```
-
