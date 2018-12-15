@@ -86,7 +86,8 @@ export class NanJMinBotService {
 	}
 
 	private postToSlack(message: string) {
-		const url = 'https://hooks.slack.com/services/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';
+		const url = 'https://hooks.slack.com/services/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';
+
 		const options = {
 			headers: {
 				"Content-type": "application/json",
