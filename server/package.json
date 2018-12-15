@@ -5,9 +5,9 @@
   "private": true,
   "main": "./www/index.js",
   "scripts": {
-    "start": "tsc && PORT=3002 NODE_ENV=production forever start --watch --watchDirectory=./ www/index.js --watchIgnore",
+    "start": "tsc && PORT=3004 NODE_ENV=production forever start --watch --watchDirectory=./ www/index.js --watchIgnore",
     "stop": "forever stop www/index.js",
-    "dev": "tsc; tsc --watch & PORT=3002 NODE_ENV=development forever --watch --watchDirectory=./ www/index.js --watchIgnore"
+    "dev": "tsc; tsc --watch & PORT=3004 NODE_ENV=development forever --watch --watchDirectory=./ www/index.js --watchIgnore"
   },
   "license": "MIT",
   "dependencies": {
