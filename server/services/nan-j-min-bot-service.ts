@@ -6,11 +6,20 @@ import * as request from 'request-promise';
 
 import { ngWordList } from '../configs/ng-word-list';
 import { SlackGoingWebHookBody } from '../models/slack-going-webhook-body';
+import {T2tDecoderProcessManager} from "../t2t-decoder-process-manager";
 
 
 export class NanJMinBotService {
 
 	postMessage(body: SlackGoingWebHookBody) {
+		const processManager = T2tDecoderProcessManager.getInstance();
+		if (processManager.processCount > 1) {
+			const message = `<@${body.user_id}> 今、他のこと考えてるからちょっと待つんご`;
+			return this.postToSlack(message);
+		}
+
+		processManager.processCount++;
+
 		const srcTextFilePath = path.join(__dirname, '../../bot/text-files/src/' + body.timestamp + '.txt');
 		const distTextFilePath = path.join(__dirname, '../../bot/text-files/dist/' + body.timestamp + '.txt');
 
@@ -23,9 +32,18 @@ export class NanJMinBotService {
 				return this.readFilePromise(distTextFilePath);
 			})
 			.then((content: string) => {
+
+				processManager.processCount--;
+
 				const message = `<@${body.user_id}> `
 					+ this.filteringMessage(content.replace(/^>>[0-9]*/, ''));
 				return this.postToSlack(message);
+			})
+			.catch((error) => {
+
+				processManager.processCount--;
+
+				throw error;
 			});
 	}
 
