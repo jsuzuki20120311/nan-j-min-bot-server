@@ -2,8 +2,6 @@
 
 cd $(cd $(dirname $0); pwd)
 
-source activate nan-j-min-bot-amazonlinux2
-
 PROBLEM=my_problem
 
 MODEL=lstm_seq2seq_attention_bidirectional_encoder
