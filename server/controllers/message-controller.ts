@@ -15,7 +15,7 @@ export class MessageController {
         uri: req.body.receiveEndpoint,
         method: 'post',
         json: {
-          value: message,
+          value: '>> ' + req.body.text.slice(req.body.trigger_word.length) + '\n' + message,
           type: 0,
           author: 'bot'
         }
