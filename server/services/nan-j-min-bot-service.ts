@@ -11,40 +11,25 @@ import {T2tDecoderProcessManager} from "../t2t-decoder-process-manager";
 
 export class NanJMinBotService {
 
-	postMessage(body: SlackGoingWebHookBody) {
+	async createMessage(body: SlackGoingWebHookBody) {
 		const processManager = T2tDecoderProcessManager.getInstance();
 		if (processManager.processCount > 1) {
-			const message = `<@${body.user_id}> 今、他のこと考えてるからちょっと待つんご`;
-			return this.postToSlack(message);
+			return `今、他のこと考えてるからちょっと後でまた話かけちくりー`;
 		}
-
 		processManager.processCount++;
-
-		const srcTextFilePath = path.join(__dirname, '../../bot/text-files/src/' + body.timestamp + '.txt');
-		const distTextFilePath = path.join(__dirname, '../../bot/text-files/dist/' + body.timestamp + '.txt');
-
-		const srcText = body.text.slice(body.trigger_word.length).replace(/\r?\n/g, '').trim();
-		return this.writeFilePromise(srcTextFilePath, srcText)
-			.then(() => {
-				return this.execDecodeShellScript(srcTextFilePath, distTextFilePath);
-			})
-			.then(() => {
-				return this.readFilePromise(distTextFilePath);
-			})
-			.then((content: string) => {
-
-				processManager.processCount--;
-
-				const message = `<@${body.user_id}> `
-					+ this.filteringMessage(content.replace(/^>>[0-9]*/, ''));
-				return this.postToSlack(message);
-			})
-			.catch((error) => {
-
-				processManager.processCount--;
-
-				throw error;
-			});
+        try {
+			const srcTextFilePath = path.join(__dirname, '../../bot/text-files/src/' + body.timestamp + '.txt');
+            const distTextFilePath = path.join(__dirname, '../../bot/text-files/dist/' + body.timestamp + '.txt');
+            const srcText = body.text.slice(body.trigger_word.length).replace(/\r?\n/g, '').trim();
+			await this.writeFilePromise(srcTextFilePath, srcText);
+            await this.execDecodeShellScript(srcTextFilePath, distTextFilePath);
+            const content = await this.readFilePromise(distTextFilePath);
+			return this.filteringMessage(content.replace(/^>>[0-9]*/, ''));
+        } catch(error) {
+		    throw error;
+        } finally {
+            processManager.processCount--;
+        }
 	}
 
 	private writeFilePromise(filePath: string, content: string) {

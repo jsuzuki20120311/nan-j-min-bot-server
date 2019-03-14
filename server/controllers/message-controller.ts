@@ -1,17 +1,28 @@
 import { Request, Response, NextFunction } from 'express';
 import { NanJMinBotService } from '../services/nan-j-min-bot-service';
+import * as rp from 'request-promise';
 
 
 export class MessageController {
 
+
   async doPost(req: Request, res: Response, next: NextFunction) {
-    const service = new NanJMinBotService();
     try {
-      await service.postMessage(req.body);
       res.send({ message: 'ok' });
+      const service = new NanJMinBotService();
+      const message = await service.createMessage(req.body);
+      rp({
+        uri: req.body.receiveEndpoint,
+        method: 'post',
+        json: {
+          value: message,
+          type: 0,
+          author: 'bot'
+        }
+      });
     } catch(error) {
-      next({ stats: 500, message: 'server error.' });      
+      console.error(error);
+      next({ stats: 500, message: 'server error.' });
     }
   }
-
 }
