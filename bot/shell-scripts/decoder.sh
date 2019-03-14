@@ -4,7 +4,7 @@ PROBLEM=my_problem
 
 MODEL=lstm_seq2seq_attention_bidirectional_encoder
 HPARAMS=lstm_luong_attention_multi
-BEAM_SIZE=4
+BEAM_SIZE=1
 ALPHA=0.6
 
 USR_DIR=$HOME/src/github.com/jsuzuki20120311/nan-j-min-bot-server/bot/src
