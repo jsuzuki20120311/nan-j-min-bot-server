@@ -2,7 +2,7 @@
 
 ## デモ
 
-↓のSlackワークスペースの #bottチャンネルで '@bot ' を先頭につけてメッセージを送信すると、botが返答します。 
+↓のSlackワークスペースの #botチャンネルで '@bot ' を先頭につけてメッセージを送信すると、botが返答します。 
 
 https://join.slack.com/t/nan-j-min-bot-dev-2/shared_invite/enQtNDM0NzczOTMxODU3LTMxMzYzMjE1OGRiNDBjMGIzZGM3Mjk5YjA2MzcyYmIzZmMwM2VlYjA3ZWQzYzk1YjIyMDEzYTkxYThiMmUyNzM
 
