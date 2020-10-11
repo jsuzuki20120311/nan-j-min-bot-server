@@ -7,14 +7,15 @@ dependencies:
   - libgcc-ng=8.2.0=hdf63c60_1
   - openssl=1.0.2r=h7b6447c_0
   - pip=19.0.3=py36_0
+  - python=3.6.0=0
+  - readline=6.2=2
   - setuptools=40.8.0=py36_0
+  - sqlite=3.13.0=0
+  - tk=8.5.18=0
   - wheel=0.33.1=py36_0
   - xz=5.2.4=h14c3975_4
   - zlib=1.2.11=h7b6447c_3
   - pip:
-    - tk==8.5.18
-    - sqlite==3.13.0
-    - readline==6.2
     - absl-py==0.7.0
     - astor==0.7.1
     - bz2file==0.98
