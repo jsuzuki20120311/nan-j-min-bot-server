@@ -12,10 +12,10 @@ dependencies:
   - xz=5.2.4=h14c3975_4
   - zlib=1.2.11=h7b6447c_3
   - pip:
-    - python==3.6.0=0
-    - tk==8.5.18=0
-    - sqlite==3.13.0=0
-    - readline==6.2=2
+    - python==3.6.0
+    - tk==8.5.18
+    - sqlite==3.13.0
+    - readline==6.2
     - absl-py==0.7.0
     - astor==0.7.1
     - bz2file==0.98
