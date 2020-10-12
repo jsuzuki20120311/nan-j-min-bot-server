@@ -1,4 +1,4 @@
-name: nan-j-min-bot-ubuntu
+name: nan-j-min-bot
 channels:
   - defaults
 dependencies:
@@ -74,5 +74,3 @@ dependencies:
     - tqdm==4.25.0
     - uritemplate==3.0.0
     - urllib3==1.23
-prefix: /home/bitnami/.pyenv/versions/miniconda3-4.3.30/envs/nan-j-min-bot-ubuntu
-
